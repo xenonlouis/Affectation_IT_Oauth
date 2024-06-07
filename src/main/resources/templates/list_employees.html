@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>List of Employees</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+        h2 {
+            color: #333;
+        }
+        nav {
+            margin-bottom: 20px;
+        }
+        nav a {
+            margin-right: 10px;
+            text-decoration: none;
+            color: #007BFF;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            background-color: #fff;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f8f8f8;
+        }
+        ul {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+        .btn {
+            padding: 5px 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+<h2>List of Employees</h2>
+<nav>
+    <a th:href="@{/affectation}">Add Employee</a>
+    <span> | </span>
+    <a th:href="@{/home}">Back to Home</a>
+</nav>
+
+<!-- Employee List -->
+<form>
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Skills</th>
+            <th>Projects</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="emp : ${employees}">
+            <td th:text="${emp.id}"></td>
+            <td th:text="${emp.name}"></td>
+            <td th:text="${emp.email}"></td>
+            <td>
+                <ul>
+                    <li th:each="skill : ${emp.skills}" th:text="${skill}"></li>
+                </ul>
+            </td>
+            <td>
+                <ul>
+                    <li th:each="project : ${emp.projects}" th:text="${project.name}"></li>
+                </ul>
+            </td>
+            <td>
+                <form th:action="@{/deleteEmployee}" method="post">
+                    <input type="hidden" name="id" th:value="${emp.id}" />
+                    <button type="submit" class="btn">Delete</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</form>
+</body>
+</html>
