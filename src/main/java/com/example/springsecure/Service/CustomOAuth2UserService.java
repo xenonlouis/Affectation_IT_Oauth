@@ -44,7 +44,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
         // Return a DefaultOAuth2User with the necessary authorities and attributes
         return new DefaultOAuth2User(
-                Collections.singleton(new SimpleGrantedAuthority(post)),
+                Collections.singleton(new SimpleGrantedAuthority("MANAGER")),
                 oAuth2User.getAttributes(),
                 "email"
         );
